@@ -7,6 +7,10 @@ public:
 	Graph(std::vector<V>&& vertices)
 		: _baseGraph(vertices.size()), _vertices(std::move(vertices))
 	{
+		for (BaseGraph::IndexT i = 0; i < _vertices.size(); ++i)
+		{
+			_vertexToIndex[_vertices[i]] = i;
+		}
 	}
 
 	void addEdge(const V& from, const V& to, E&& edge)
