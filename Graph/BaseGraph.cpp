@@ -2,9 +2,8 @@
 #include <GAssert.h>
 
 BaseGraph::BaseGraph(IndexT verticesCount)
-	: _verticesCount(verticesCount)
+	: _verticesCount(verticesCount), _adjList(verticesCount)
 {
-	_adjList.reserve(verticesCount);
 }
 
 void BaseGraph::addEdge(IndexT from, IndexT to)

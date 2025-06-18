@@ -1,5 +1,4 @@
 #include <vector>
-#include <unordered_map>
 
 class BaseGraph {
 public:
@@ -17,5 +16,5 @@ private:
 	IndexT _verticesCount;
 
 	std::vector<Edge> _edges;
-	std::unordered_map<IndexT, std::vector<Edge>> _adjList;
+	std::vector<std::vector<Edge>> _adjList;
 };

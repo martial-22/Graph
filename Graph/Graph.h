@@ -1,3 +1,5 @@
+#include <unordered_map>
+
 #include <BaseGraph.h>
 #include <GAssert.h>
 
