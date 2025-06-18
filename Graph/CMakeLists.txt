@@ -2,6 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 
 project(Graph)
 
-set(SOURCE_LIB Graph.cpp)
+file(GLOB SOURCE_LIB "*.cpp" "*.h")
 
 add_library(Graph STATIC ${SOURCE_LIB})
