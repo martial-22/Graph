@@ -4,16 +4,19 @@ template <class V, class E>
 class Graph {
 public:
 	Graph(std::vector<V>&& vertices)
-		: _vertices(std::move(vertices))
+		: _baseGraph(vertices.size()), _vertices(std::move(vertices))
 	{
 	}
 
 	void addEdge(const V& from, const V& to, E&& edge)
 	{
 		_edges.emplace_back(std::move(edge));
+		_baseGraph.addEdge(_vertexToIndex[from], _vertexToIndex[to]);
 	}
 
 private:
+	BaseGraph _baseGraph;
+
 	std::vector<V> _vertices;
 	std::vector<E> _edges;
 
