@@ -1,5 +1,4 @@
-#include <vector>
-#include <unordered_map>
+#include <BaseGraph.h>
 
 template <class V, class E>
 class Graph {
@@ -18,6 +17,6 @@ private:
 	std::vector<V> _vertices;
 	std::vector<E> _edges;
 
-	std::unordered_map<V, std::uint64_t> _vertexToIndex;
-	std::unordered_map<E, std::uint64_t> _edgeToIndex;
+	std::unordered_map<V, BaseGraph::IndexT> _vertexToIndex;
+	std::unordered_map<E, BaseGraph::IndexT> _edgeToIndex;
 };
