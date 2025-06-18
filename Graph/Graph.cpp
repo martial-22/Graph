@@ -1,8 +1,8 @@
 #include <Graph.h>
 #include <GAssert.h>
 
-Graph::Graph(IndexT verticesCount)
-	: _verticesCount(verticesCount), _adjacencyLists(verticesCount)
+Graph::Graph(IndexT verticesCount, DirectionType directionType)
+	: _verticesCount(verticesCount), _directionType(directionType), _adjacencyLists(verticesCount)
 {
 }
 
@@ -14,8 +14,11 @@ Graph::IndexT Graph::addEdge(IndexT from, IndexT to)
 	_edges.emplace_back(from, to, edgeIndex);
 
 	_adjacencyLists[from].emplace_back(edgeIndex);
-	_adjacencyLists[to].emplace_back(edgeIndex);
 
+	if (_directionType == DirectionType::UNDIRECTED)
+	{
+		_adjacencyLists[to].emplace_back(edgeIndex);
+	}
 	return edgeIndex;
 }
 

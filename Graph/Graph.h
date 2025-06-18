@@ -1,16 +1,24 @@
 #include <vector>
 
-class Graph {
+class Graph
+{
 public:
 	using IndexT = std::uint64_t;
 
-	struct Edge {
+	enum class DirectionType
+	{
+		DIRECTED,
+		UNDIRECTED
+	};
+
+	struct Edge
+	{
 		IndexT _from;
 		IndexT _to;
 		IndexT _index;
 	};
 
-	explicit Graph(IndexT verticesCount);
+	explicit Graph(IndexT verticesCount, DirectionType directionType);
 
 	/**
 	* @brief Adds new edge between two vertices.
@@ -29,8 +37,8 @@ public:
 	const std::vector<IndexT>& adjacencyList(IndexT vertexIndex) const;
 
 private:
-
 	IndexT _verticesCount;
+	DirectionType _directionType;
 
 	std::vector<Edge> _edges;
 	std::vector<std::vector<IndexT>> _adjacencyLists;
