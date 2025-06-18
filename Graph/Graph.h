@@ -1,4 +1,5 @@
 #include <BaseGraph.h>
+#include <GAssert.h>
 
 template <class V, class E>
 class Graph {
@@ -10,8 +11,13 @@ public:
 
 	void addEdge(const V& from, const V& to, E&& edge)
 	{
+		auto fromIter = _vertexToIndex.find(from);
+		auto toIter = _vertexToIndex.find(to);
+
+		GRAPH_ASSERT(fromIter != _vertexToIndex.end() && toIter != _vertexToIndex.end());
+
 		_edges.emplace_back(std::move(edge));
-		_baseGraph.addEdge(_vertexToIndex[from], _vertexToIndex[to]);
+		_baseGraph.addEdge(fromIter->second, toIter->second);
 	}
 
 private:
