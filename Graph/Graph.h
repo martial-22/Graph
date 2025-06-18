@@ -1,37 +1,37 @@
-#include <unordered_map>
+#include <vector>
 
-#include <BaseGraph.h>
-#include <GAssert.h>
-
-template <class V, class E>
 class Graph {
 public:
-	Graph(std::vector<V>&& vertices)
-		: _baseGraph(vertices.size()), _vertices(std::move(vertices))
-	{
-		for (BaseGraph::IndexT i = 0; i < _vertices.size(); ++i)
-		{
-			_vertexToIndex[_vertices[i]] = i;
-		}
-	}
+	using IndexT = std::uint64_t;
 
-	void addEdge(const V& from, const V& to, E&& edge)
-	{
-		auto fromIter = _vertexToIndex.find(from);
-		auto toIter = _vertexToIndex.find(to);
+	struct Edge {
+		IndexT _from;
+		IndexT _to;
+		IndexT _index;
+	};
 
-		GRAPH_ASSERT(fromIter != _vertexToIndex.end() && toIter != _vertexToIndex.end());
+	explicit Graph(IndexT verticesCount);
 
-		_edges.emplace_back(std::move(edge));
-		_baseGraph.addEdge(fromIter->second, toIter->second);
-	}
+	/**
+	* @brief Adds new edge between two vertices.
+	* @returns Index of added edge.
+	*/
+	IndexT addEdge(IndexT from, IndexT to);
+
+	/**
+	* @returns Edge by index.
+	*/
+	const Edge& edge(IndexT edgeIndex) const;
+
+	/**
+	* @returns Edges incident to vertex with index vertexIndex.
+	*/
+	const std::vector<IndexT>& adjacencyList(IndexT vertexIndex) const;
 
 private:
-	BaseGraph _baseGraph;
 
-	std::vector<V> _vertices;
-	std::vector<E> _edges;
+	IndexT _verticesCount;
 
-	std::unordered_map<V, BaseGraph::IndexT> _vertexToIndex;
-	std::unordered_map<E, BaseGraph::IndexT> _edgeToIndex;
+	std::vector<Edge> _edges;
+	std::vector<std::vector<IndexT>> _adjacencyLists;
 };

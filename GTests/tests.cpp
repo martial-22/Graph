@@ -11,8 +11,8 @@ TEST(HelloTest, BasicAssertions) {
 
 TEST(AssertTest, AddEdge)
 {
-	Graph<int, int> graph({ 1, 2, 3 });
+	Graph graph(3);
 	
-	EXPECT_NO_THROW(graph.addEdge(1, 2, 0));
-	EXPECT_THROW(graph.addEdge(4, 2, 0), std::runtime_error);
+	EXPECT_NO_THROW(graph.addEdge(1, 2));
+	EXPECT_THROW(graph.addEdge(4, 2), std::runtime_error);
 }
