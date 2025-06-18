@@ -3,7 +3,7 @@
 
 TEST(AssertTest, AddEdge)
 {
-	Graph graph(3);
+	Graph graph(3, Graph::DirectionType::UNDIRECTED);
 	
 	EXPECT_NO_THROW(graph.addEdge(1, 2));
 	EXPECT_THROW(graph.addEdge(4, 2), std::runtime_error);
@@ -11,7 +11,7 @@ TEST(AssertTest, AddEdge)
 
 TEST(AssertTest, GetEdge)
 {
-	Graph graph(3);
+	Graph graph(3, Graph::DirectionType::UNDIRECTED);
 
 	Graph::IndexT edgeIndex = graph.addEdge(1, 2);
 	EXPECT_EQ(edgeIndex, 0);
@@ -23,7 +23,7 @@ TEST(AssertTest, GetEdge)
 
 TEST(AssertTest, GetAdjacencyList)
 {
-	Graph graph(2);
+	Graph graph(2, Graph::DirectionType::UNDIRECTED);
 	EXPECT_NO_THROW(graph.addEdge(0, 1));
 
 	EXPECT_NO_THROW(graph.adjacencyList(0));
