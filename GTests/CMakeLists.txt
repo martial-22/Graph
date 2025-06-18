@@ -25,6 +25,7 @@ add_executable(
 target_link_libraries(
   tests
   GTest::gtest_main
+  Graph
 )
 
 include(GoogleTest)
