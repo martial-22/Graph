@@ -6,6 +6,7 @@ class Graph
 {
 public:
 	using IndexT = std::uint64_t;
+	static inline constexpr IndexT nullIndex = std::numeric_limits<IndexT>::max();
 
 	enum class DirectionType
 	{

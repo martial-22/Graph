@@ -6,14 +6,13 @@
 
 void BFS::run(Graph::IndexT firstVertex, EdgePredicate exitCondition)
 {
-    std::unordered_set<Graph::IndexT> visited;
     std::unordered_map<Graph::IndexT, Graph::IndexT> parentEdges;
 
     Graph::IndexT v = firstVertex;
     std::queue<Graph::IndexT> queue;
 
     queue.push(v);
-    visited.insert(v);
+    parentEdges[v] = Graph::nullIndex;
 
     // Traverse graph while exit condition is unsatisfied
     while (!queue.empty()) {
@@ -21,20 +20,17 @@ void BFS::run(Graph::IndexT firstVertex, EdgePredicate exitCondition)
         v = queue.front();
         queue.pop();
 
-        auto parentIter = parentEdges.find(v);
-        if (parentIter != parentEdges.end() && exitCondition(parentIter->second)) {
+        auto iter = parentEdges.find(v);
+        if (iter != parentEdges.end() && exitCondition(iter->second)) {
             break;
         }
 
-        for (Graph::IndexT outEdgeIndex : _graph.adjacencyList(v)) {
-            const Graph::Edge& edge = _graph.edge(outEdgeIndex);
+        for (Graph::IndexT eIndex : _graph.adjacencyList(v)) {
+            const Graph::Edge& edge = _graph.edge(eIndex);
 
-            // TODO: support ingore edge condition
-            if (visited.count(edge._to) == 0) {
+            if (parentEdges.count(edge._to) == 0) {
                 queue.push(edge._to);
-                visited.insert(edge._to);
-
-                parentEdges[edge._to] = outEdgeIndex;
+                parentEdges[edge._to] = eIndex;
             }
         }
     }
@@ -42,14 +38,18 @@ void BFS::run(Graph::IndexT firstVertex, EdgePredicate exitCondition)
     // Save traverse order
     _traverseOrder.clear();
 
-    auto parentIter = parentEdges.find(v);
-    while (parentIter != parentEdges.end()) {
-        Graph::IndexT parentEdgeIndex = parentIter->second;
+    auto iter = parentEdges.find(v);
+    while (iter != parentEdges.end()) {
 
-        const Graph::Edge& parentEdge = _graph.edge(parentEdgeIndex);
+        Graph::IndexT eIndex = iter->second;
+        if (eIndex == Graph::nullIndex) {
+            break;
+        }
 
-        _traverseOrder.push_back(parentEdgeIndex);
-        parentIter = parentEdges.find(parentEdge._from);
+        const Graph::Edge& edge = _graph.edge(eIndex);
+
+        _traverseOrder.push_back(eIndex);
+        iter = parentEdges.find(edge._from);
     }
     std::reverse(_traverseOrder.begin(), _traverseOrder.end());
 }
