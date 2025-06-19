@@ -14,14 +14,14 @@ public:
 	{
 	}
 
-	virtual void run(EdgePredicate exitCondition) = 0;
+	virtual void run(Graph::IndexT firstVertex, EdgePredicate exitCondition) = 0;
 
 	/**
 	* @returns Indices of visited edges in the order of traverse.
 	*/
 	const std::vector<Graph::IndexT>& traverseOrder() const { return _traverseOrder; }
 
-private:
+protected:
 	const Graph& _graph;
 	std::vector<Graph::IndexT> _traverseOrder;
 };
