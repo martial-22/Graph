@@ -1,3 +1,5 @@
+#pragma once
+
 void assertImpl(const char* cond, const char* file, int line);
 
 #define GRAPH_ASSERT(cond)                            \
