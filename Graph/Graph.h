@@ -20,13 +20,18 @@ public:
 		IndexT _index;
 	};
 
-	explicit Graph(IndexT verticesCount, DirectionType directionType);
+	explicit Graph(IndexT numVertices, DirectionType directionType);
 
 	/**
 	* @brief Adds new edge between two vertices.
 	* @returns Index of added edge.
 	*/
 	IndexT addEdge(IndexT from, IndexT to);
+
+	/**
+	* @returns Number of vertices.
+	*/
+	std::size_t numVertices() const { return _numVertices; }
 
 	/**
 	* @returns Number of edges.
@@ -44,7 +49,7 @@ public:
 	const std::vector<IndexT>& adjacencyList(IndexT vertexIndex) const;
 
 private:
-	IndexT _verticesCount;
+	IndexT _numVertices;
 	DirectionType _directionType;
 
 	std::vector<Edge> _edges;

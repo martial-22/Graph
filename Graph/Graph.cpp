@@ -1,14 +1,14 @@
 #include <Graph.h>
 #include <GAssert.h>
 
-Graph::Graph(IndexT verticesCount, DirectionType directionType)
-	: _verticesCount(verticesCount), _directionType(directionType), _adjacencyLists(verticesCount)
+Graph::Graph(IndexT numVertices, DirectionType directionType)
+	: _numVertices(numVertices), _directionType(directionType), _adjacencyLists(_numVertices)
 {
 }
 
 Graph::IndexT Graph::addEdge(IndexT from, IndexT to)
 {
-	GRAPH_ASSERT(from < _verticesCount && to < _verticesCount);
+	GRAPH_ASSERT(from < _numVertices && to < _numVertices);
 
 	IndexT edgeIndex = _edges.size();
 	_edges.emplace_back(from, to, edgeIndex);
@@ -30,6 +30,6 @@ const Graph::Edge& Graph::edge(IndexT edgeIndex) const
 
 const std::vector<Graph::IndexT>& Graph::adjacencyList(IndexT vertexIndex) const
 {
-	GRAPH_ASSERT(vertexIndex < _verticesCount);
+	GRAPH_ASSERT(vertexIndex < _numVertices);
 	return _adjacencyLists[vertexIndex];
 }
