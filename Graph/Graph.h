@@ -29,6 +29,11 @@ public:
 	IndexT addEdge(IndexT from, IndexT to);
 
 	/**
+	* @returns Number of edges.
+	*/
+	std::size_t numEdges() const { return _edges.size(); }
+
+	/**
 	* @returns Edge by index.
 	*/
 	const Edge& edge(IndexT edgeIndex) const;

@@ -6,8 +6,13 @@ TEST(GraphTest, GetEdge)
 	Graph graph(3, Graph::DirectionType::UNDIRECTED);
 
 	Graph::IndexT e1 = graph.addEdge(1, 2);
+	EXPECT_EQ(graph.numEdges(), 1);
+
 	Graph::IndexT e2 = graph.addEdge(0, 2);
+	EXPECT_EQ(graph.numEdges(), 2);
+
 	Graph::IndexT e3 = graph.addEdge(0, 1);
+	EXPECT_EQ(graph.numEdges(), 3);
 	
 	EXPECT_EQ(graph.edge(0)._from, 1);
 	EXPECT_EQ(graph.edge(0)._to, 2);
@@ -30,7 +35,10 @@ TEST(GraphTest, GetAdjacencyListDirected)
 	Graph graph(4, Graph::DirectionType::DIRECTED);
 
 	Graph::IndexT e1 = graph.addEdge(1, 2);
+	EXPECT_EQ(graph.numEdges(), 1);
+
 	Graph::IndexT e2 = graph.addEdge(0, 2);
+	EXPECT_EQ(graph.numEdges(), 2);
 
 	EXPECT_EQ(graph.adjacencyList(0).size(), 1);
 	EXPECT_EQ(graph.adjacencyList(0).front(), e2);
@@ -47,7 +55,10 @@ TEST(GraphTest, GetAdjacencyListUndirected)
 	Graph graph(4, Graph::DirectionType::UNDIRECTED);
 
 	Graph::IndexT e1 = graph.addEdge(1, 2);
+	EXPECT_EQ(graph.numEdges(), 1);
+
 	Graph::IndexT e2 = graph.addEdge(0, 2);
+	EXPECT_EQ(graph.numEdges(), 2);
 
 	EXPECT_EQ(graph.adjacencyList(0).size(), 1);
 	EXPECT_EQ(graph.adjacencyList(0).front(), e2);
